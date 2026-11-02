@@ -1,12 +1,12 @@
 {
   "home": {
     "versionCode": 26110305,
-    "url": "https://github.com/ALjasme/klighttv-updates/releases/download/v26110305/KLightTV-home.apk",
+    "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/v26110305/system.q8tv-home.apk",
     "sha256": "82e9c5f401409c852ee581625a6bd209c3688c854fdcb3eee4e817106fb880d8"
   },
   "screensaver": {
     "versionCode": 26110305,
-    "url": "https://github.com/ALjasme/klighttv-updates/releases/download/v26110305/KLightTV-screensaver.apk",
+    "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/v26110305/system.q8tv-screensaver.apk",
     "sha256": "67968a7c2482fb3d75b4354e288629b93a430d1dc40517bb1082a720a9958163"
   }
 }
