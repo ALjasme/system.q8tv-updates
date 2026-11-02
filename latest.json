@@ -1,1 +1,12 @@
-{}
+{
+  "home": {
+    "versionCode": 26110301,
+    "url": "https://github.com/ALjasme/klighttv-updates/releases/download/v26110301/KLightTV-home.apk",
+    "sha256": "226bbfbfd4da1b19539e47f09199fe998871c8b92a40e238c1442e40121324ba"
+  },
+  "screensaver": {
+    "versionCode": 26110301,
+    "url": "https://github.com/ALjasme/klighttv-updates/releases/download/v26110301/KLightTV-screensaver.apk",
+    "sha256": "28905ceb3ce40a216f11064e1ef73dcf7b140d756eb337175fa2b5bf53808fbf"
+  }
+}
