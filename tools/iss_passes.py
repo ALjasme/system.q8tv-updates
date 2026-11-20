@@ -6,8 +6,19 @@ from skyfield.api import load, wgs84, EarthSatellite
 LAT, LON = 29.3759, 47.9774
 DIRS = ["الشمال", "الشمال الشرقي", "الشرق", "الجنوب الشرقي", "الجنوب", "الجنوب الغربي", "الغرب", "الشمال الغربي"]
 ts = load.timescale(); eph = load('de421.bsp')
-req = urllib.request.Request("https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=tle", headers={"User-Agent": "system.q8tv"})
-lines = urllib.request.urlopen(req, timeout=30).read().decode().strip().splitlines()
+import time
+lines = None
+for attempt in range(3):   # CelesTrak is sometimes slow; on failure keep yesterday's iss.json (it covers ten days)
+    try:
+        req = urllib.request.Request("https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=tle", headers={"User-Agent": "system.q8tv"})
+        lines = urllib.request.urlopen(req, timeout=60).read().decode().strip().splitlines()
+        break
+    except Exception as e:
+        print("CelesTrak attempt", attempt + 1, "failed:", e)
+        time.sleep(30)
+if not lines:
+    print("orbit unavailable today; iss.json left as it was")
+    sys.exit(0)
 sat = EarthSatellite(lines[1].strip(), lines[2].strip(), lines[0].strip(), ts)
 home = wgs84.latlon(LAT, LON, 10)
 t0 = ts.now(); t1 = ts.tt_jd(t0.tt + 10)  # orbits drift; 10 days keeps times within about a minute
