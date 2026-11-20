@@ -1,0 +1,27 @@
+name: iss passes
+# Visible passes of the space station over Kuwait for the next 10 days (tools/iss_passes.py), read by the TVs.
+on:
+  schedule:
+    - cron: "17 1 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  passes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install skyfield==1.55
+      - name: compute
+        working-directory: ${{ runner.temp }}
+        run: python "$GITHUB_WORKSPACE/tools/iss_passes.py" "$GITHUB_WORKSPACE/iss.json"
+      - name: publish
+        run: |
+          git config user.name "system.q8tv sky"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add iss.json
+          git diff --cached --quiet || git commit -m "iss passes $(date -u +%F)"
+          git push
