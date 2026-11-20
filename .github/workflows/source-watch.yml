@@ -1,0 +1,33 @@
+name: source watch
+# Every morning: are all the outside sources system.q8tv uses still answering? (tools/source_watch.py)
+# One issue stays open while something is broken (GitHub e-mails the owner); it closes itself when all are back.
+on:
+  schedule:
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: check
+        id: check
+        run: python tools/source_watch.py && echo "ok=true" >> "$GITHUB_OUTPUT" || echo "ok=false" >> "$GITHUB_OUTPUT"
+      - name: report
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="⚠️ مصادر لا تعمل"
+          open=$(gh issue list --state open --search "in:title \"$title\"" --json number --jq '.[0].number')
+          if [ "${{ steps.check.outputs.ok }}" = "true" ]; then
+            [ -n "$open" ] && gh issue close "$open" --comment "عادت كل المصادر تعمل ($(date -u +%F))." || true
+          else
+            body="$(printf 'فحص %s:\n\n%s\n\nالأجهزة تبقى تعمل، لكن الميزة المرتبطة بالمصدر قد تتوقف.' "$(date -u +%F)" "$(cat source_report.md)")"
+            if [ -n "$open" ]; then gh issue comment "$open" --body "$body"; else gh issue create --title "$title" --body "$body"; fi
+          fi
