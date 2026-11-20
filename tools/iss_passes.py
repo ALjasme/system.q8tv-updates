@@ -7,15 +7,23 @@ LAT, LON = 29.3759, 47.9774
 DIRS = ["الشمال", "الشمال الشرقي", "الشرق", "الجنوب الشرقي", "الجنوب", "الجنوب الغربي", "الغرب", "الشمال الغربي"]
 ts = load.timescale(); eph = load('de421.bsp')
 import time
+# the same orbit (TLE) from three places, in order: CelesTrak, ARISS (the ISS ham-radio team), and a TLE mirror.
+# If all fail, yesterday's iss.json stays (it covers ten days).
+SOURCES = ["https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=tle", "https://live.ariss.org/iss.txt",
+           "https://tle.ivanstanojevic.me/api/tle/25544"]
 lines = None
-for attempt in range(3):   # CelesTrak is sometimes slow; on failure keep yesterday's iss.json (it covers ten days)
+for url in SOURCES:
     try:
-        req = urllib.request.Request("https://celestrak.org/NORAD/elements/gp.php?CATNR=25544&FORMAT=tle", headers={"User-Agent": "system.q8tv"})
-        lines = urllib.request.urlopen(req, timeout=60).read().decode().strip().splitlines()
+        body = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "system.q8tv"}), timeout=40).read().decode()
+        if body.lstrip().startswith("{"):
+            d = json.loads(body); body = "\n".join([d["name"], d["line1"], d["line2"]])
+        found = [l.strip() for l in body.strip().splitlines()]
+        i = next(k for k, l in enumerate(found) if l.startswith("1 25544"))
+        lines = [found[i - 1] if i > 0 else "ISS (ZARYA)", found[i], found[i + 1]]
+        print("orbit from", url)
         break
     except Exception as e:
-        print("CelesTrak attempt", attempt + 1, "failed:", e)
-        time.sleep(30)
+        print("orbit source failed:", url, e)
 if not lines:
     print("orbit unavailable today; iss.json left as it was")
     sys.exit(0)
