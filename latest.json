@@ -1,15 +1,15 @@
 {
   "home": {
-    "versionCode": 261121131,
-    "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/v261121131/system.q8tv-home.apk",
-    "sha256": "f9472152f08a675a8c16300e3c93324e151764611e66dc20fdb0e43612ee9c2b"
+    "versionCode": 261121134,
+    "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/v261121134/system.q8tv-home.apk",
+    "sha256": "d7831f1b25324c46e90e11af2e72f52cb5984fe0c76c692e199dd92d0b853872"
   },
   "screensaver": {
-    "versionCode": 261121131,
-    "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/v261121131/system.q8tv-screensaver.apk",
-    "sha256": "d2a9ff5fc429c12e4108c170f6e756688353ae11a1dc81691956c671b5eeebb6"
+    "versionCode": 261121134,
+    "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/v261121134/system.q8tv-screensaver.apk",
+    "sha256": "800d6a36e12b2c04dd4fef896cc0cb2f9a36652922db9629eade3595e5e52efa"
   },
-  "published": 1795247956,
-  "urgent": false,
+  "published": 1795248822,
+  "urgent": true,
   "hold": false
 }
