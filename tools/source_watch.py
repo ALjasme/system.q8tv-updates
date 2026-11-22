@@ -39,6 +39,13 @@ CHECKS = {
     "الأخبار (سكاي نيوز)": lambda: b"<rss" in get("https://www.skynewsarabia.com/rss"),
     "محطة الفضاء (iss.json)": lambda: (datetime.datetime.now(datetime.timezone.utc) - datetime.datetime.strptime(
         j("https://raw.githubusercontent.com/ALjasme/system.q8tv-updates/main/iss.json")["updated"], "%Y-%m-%dT%H:%MZ").replace(tzinfo=datetime.timezone.utc)).days < 2,
+    "نفط برنت (السوق صباحًا)": lambda: j("https://scanner.tradingview.com/futures/scan", data=json.dumps({"symbols": {"tickers": ["ICEEUR:BRN1!"]}, "columns": ["close", "change"]}).encode(),
+                                    headers={"Content-Type": "application/json"})["totalCount"] == 1,
+    "الذهب والدولار (الغرام بالدينار)": lambda: j("https://scanner.tradingview.com/forex/scan", data=json.dumps({"symbols": {"tickers": ["FX_IDC:USDKWD"]}, "columns": ["close"]}).encode(),
+                                    headers={"Content-Type": "application/json"})["totalCount"] == 1,
+    "ألوان التجويد (مؤسسة القرآن)": lambda: "<rule class=" in json.dumps(j("https://api.quran.com/api/v4/verses/by_page/2?words=true&word_fields=text_uthmani_tajweed&per_page=3"), ensure_ascii=False),
+    "توقيت الكلمات (مؤسسة القرآن)": lambda: len(j("https://api.quran.com/api/v4/chapter_recitations/7/1?segments=true")["audio_file"]["timestamps"]) == 7,
+    "رزنامة وزارة التربية": lambda: "امتحان نهاية الفصل الدراسي" in __import__("html").unescape(get("https://www.moe.edu.kw/pages/calendar").decode("utf-8", "ignore")),
     "قنوات IPTV": lambda: get("https://raw.githubusercontent.com/ALjasme/klight-iptv/main/playlist.m3u", limit=64).startswith(b"#EXTM3U"),
 }
 
