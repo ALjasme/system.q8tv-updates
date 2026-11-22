@@ -1,0 +1,6 @@
+{
+ "note": "Kuwait events with officially announced dates only (from, to inclusive). TVs read this daily; add a season when it is announced.",
+ "events": [
+  {"from": "2026-11-18", "to": "2026-11-28", "name": "معرض الكويت الدولي للكتاب", "where": "أرض المعارض · مشرف", "source": "https://bookfair.nccal.gov.kw/ar"}
+ ]
+}
