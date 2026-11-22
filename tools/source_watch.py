@@ -46,6 +46,8 @@ CHECKS = {
     "ألوان التجويد (مؤسسة القرآن)": lambda: "<rule class=" in json.dumps(j("https://api.quran.com/api/v4/verses/by_page/2?words=true&word_fields=text_uthmani_tajweed&per_page=3"), ensure_ascii=False),
     "توقيت الكلمات (مؤسسة القرآن)": lambda: len(j("https://api.quran.com/api/v4/chapter_recitations/7/1?segments=true")["audio_file"]["timestamps"]) == 7,
     "رزنامة وزارة التربية": lambda: "امتحان نهاية الفصل الدراسي" in __import__("html").unescape(get("https://www.moe.edu.kw/pages/calendar").decode("utf-8", "ignore")),
+    "إذاعة القرآن الكريم · الكويت": lambda: get("https://kwtkrdota.cdn.mangomolo.com/qrrdo/qrrdo.stream_aac/chunklist.m3u8", limit=4096).startswith(b"#EXTM3U"),
+    "ترتيب الدوري الكويتي": lambda: len(j("https://www.thesportsdb.com/api/v1/json/123/lookuptable.php?l=4823&s=" + (lambda t: f"{t.year if t.month >= 8 else t.year - 1}-{(t.year if t.month >= 8 else t.year - 1) + 1}")(datetime.date.today()))["table"]) > 0,
     "قنوات IPTV": lambda: get("https://raw.githubusercontent.com/ALjasme/klight-iptv/main/playlist.m3u", limit=64).startswith(b"#EXTM3U"),
 }
 
