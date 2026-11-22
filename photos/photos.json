@@ -1,48 +1,52 @@
 {
  "photos": [
   {
-   "file": "kw_202611_1.jpg",
-   "sha256": "ed4b5be6b338cf4843361f6d10a0678824b9857b52f0d7031b3f0c822716f488",
+   "file": "kw_202611_1.webp",
+   "sha256": "d944cff241a303b09a23266680840e9d154ca95bdb6c3c3d8d031cc67c5f7f40",
    "month": "2026-11",
    "commons": "Another Perspective.jpg",
    "title": "أبراج الكويت بين النخيل",
    "author": "Momuspak",
    "license": "CC BY-SA 4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Another_Perspective.jpg",
-   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_1.jpg"
+   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_1.webp",
+   "old": "kw_202611_1.jpg"
   },
   {
-   "file": "kw_202611_2.jpg",
-   "sha256": "803652dc8a312196223711ba8444ee2e8d3feec363ac6be1c381e092bdda5f14",
+   "file": "kw_202611_2.webp",
+   "sha256": "4f09f6307e1b457af436df5081c258b88b05e3a7762c89f7f045027acb14fc41",
    "month": "2026-11",
    "commons": "Puerto de los barcos viejos, ciudad de Kuwait, Kuwait, 2024-08-12, DD 36.jpg",
    "title": "سفن الصيد القديمة في ميناء الكويت",
    "author": "Diego Delso",
    "license": "CC BY-SA 4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Puerto_de_los_barcos_viejos,_ciudad_de_Kuwait,_Kuwait,_2024-08-12,_DD_36.jpg",
-   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_2.jpg"
+   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_2.webp",
+   "old": "kw_202611_2.jpg"
   },
   {
-   "file": "kw_202611_3.jpg",
-   "sha256": "216239aee7b1f7a3b8733caa1d3ce6f218be1773131e94b436eea6978f963ef5",
+   "file": "kw_202611_3.webp",
+   "sha256": "c4e1106cea7dc127a9500f2549db683194edb8abb476429140a204a53d28d7aa",
    "month": "2026-11",
    "commons": "Kuwait City Grand Mosque Exterior South Facade 2.jpg",
    "title": "المسجد الكبير · الواجهة الجنوبية",
    "author": "Zairon",
    "license": "CC BY 4.0",
    "source": "https://commons.wikimedia.org/wiki/File:Kuwait_City_Grand_Mosque_Exterior_South_Facade_2.jpg",
-   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_3.jpg"
+   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_3.webp",
+   "old": "kw_202611_3.jpg"
   },
   {
-   "file": "kw_202611_4.jpg",
-   "sha256": "f653b5fcb2bc304f390f4a7532678571771104e115a6e5d03db67033b13261eb",
+   "file": "kw_202611_4.webp",
+   "sha256": "ca92f9fb08f0ee4a2df5c7b7715d772756ef91aa1c04cca5fa4797c4049a0213",
    "month": "2026-11",
    "commons": "A bird soaring above the skies of Kuwait.jpg",
    "title": "طائر فوق أفق الكويت عند الغروب",
    "author": "Di7ane",
    "license": "CC BY-SA 4.0",
    "source": "https://commons.wikimedia.org/wiki/File:A_bird_soaring_above_the_skies_of_Kuwait.jpg",
-   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_4.jpg"
+   "url": "https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-2026-11/kw_202611_4.webp",
+   "old": "kw_202611_4.jpg"
   },
   {
    "file": "kw_202611b_1.webp",
