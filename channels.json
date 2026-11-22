@@ -1,0 +1,50 @@
+{
+ "note": "Who shows each competition in Kuwait (ESPN league slug → channel and Android TV app). Edit when rights change; TVs read it daily.",
+ "season": "2025-26",
+ "leagues": {
+  "eng.1": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "eng.fa": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "eng.league_cup": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "uefa.champions": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "uefa.europa": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "uefa.europa.conf": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "esp.1": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "fra.1": {
+   "channel": "beIN SPORTS",
+   "app": "com.todtv.tod"
+  },
+  "ger.1": {
+   "channel": "MBC · شاهد",
+   "app": "net.mbc.shahidTV"
+  },
+  "ita.1": {
+   "channel": "STARZPLAY",
+   "app": ""
+  },
+  "ksa.1": {
+   "channel": "ثمانية",
+   "app": ""
+  }
+ }
+}
