@@ -12,7 +12,11 @@ Run by .github/workflows/monthly-photos.yml on the 1st of each month; also by ha
 import hashlib, io, json, os, re, sys, time, urllib.parse, urllib.request
 from PIL import Image
 
-PER_MONTH = 4
+PER_MONTH = 6
+# when the reviewed queue is used up: only these photographers' views of buildings and places (their Kuwait sets are
+# architecture without crowds), so the library keeps growing every month
+TRUSTED = {'Zairon', 'Diego Delso'}
+PLACES = re.compile(r'(mosque|tower|skyline|harbou?r|beach|park|palace|museum|souq|bridge|marina|island|desert|corniche|fort|gate|sunset|night)', re.I)
 API = 'https://commons.wikimedia.org/w/api.php'
 UA = 'system.q8tv-photos/1.0 (https://github.com/ALjasme/system.q8tv-updates)'
 SEARCHES = [
@@ -77,8 +81,20 @@ def to_uhd(data):
     if im.size[1] < 2000: return None
     im = im.resize((3840, 2160), Image.LANCZOS)
     out = io.BytesIO()
-    im.save(out, 'JPEG', quality=86, optimize=True, progressive=True)
+    im.save(out, 'WEBP', quality=82, method=6)   # the TVs read WebP since v2611; a third the size of JPEG
     return out.getvalue()
+
+WORDS = [('Grand Mosque', 'المسجد الكبير'), ('Mosque', 'مسجد'), ('Kuwait Towers', 'أبراج الكويت'), ('Liberation Tower', 'برج التحرير'),
+         ('Skyline', 'أفق المدينة'), ('Harbour', 'الميناء'), ('Beach', 'الشاطئ'), ('Park', 'حديقة'), ('Palace', 'قصر'), ('Museum', 'متحف'),
+         ('Souq', 'السوق'), ('Night', 'ليلًا'), ('Sunset', 'الغروب'), ('Island', 'جزيرة'), ('Kuwait City', 'مدينة الكويت')]
+
+def title_ar(title):
+    """A short Arabic caption from the file's English title (only for photos added without a reviewed one)."""
+    hits = [ar for en, ar in WORDS if en.lower() in title.lower()]
+    seen = []
+    for h in hits:
+        if not any(h in x for x in seen): seen.append(h)
+    return ' · '.join(seen[:3]) or 'من الكويت'
 
 def info(title):
     d = get({'action': 'query', 'titles': 'File:' + title, 'prop': 'imageinfo|categories', 'cllimit': 'max',
@@ -96,6 +112,15 @@ def main(out_dir, repo_dir):
     if any(p['month'] == month for p in listing['photos']):
         print('already added this month'); return []
     picks = []
+    skip = set()
+    try: skip = {l.strip()[5:] for l in open(os.path.join(repo_dir, 'photos', 'skip.txt')) if l.startswith('File:')}
+    except OSError: pass
+    if len([q for q in queue if q['commons'] not in done]) < PER_MONTH:   # queue running out: trusted photographers' places
+        for p, quality in candidates():
+            c = suitable(p, skip)
+            t = p['title'][5:]
+            if c and c['author'] in TRUSTED and PLACES.search(t) and t not in done and all(q['commons'] != t for q in queue):
+                queue.append({'commons': t})
     for q in queue:
         if len(picks) == PER_MONTH: break
         if q['commons'] in done: continue
@@ -103,10 +128,10 @@ def main(out_dir, repo_dir):
         if not c: print('no longer suitable:', q['commons']); continue
         jpg = to_uhd(fetch(c['thumb']))
         if not jpg: continue
-        name = 'kw_%s_%d.jpg' % (month.replace('-', ''), len(picks) + 1)
+        name = 'kw_%s_%d.webp' % (month.replace('-', ''), len(picks) + 1)
         open(os.path.join(out_dir, name), 'wb').write(jpg)
         picks.append({'file': name, 'sha256': hashlib.sha256(jpg).hexdigest(), 'month': month, 'commons': q['commons'],
-                      'title': q.get('title_ar') or c['title'], 'author': c['author'], 'license': c['license'], 'source': c['source'],
+                      'title': q.get('title_ar') or title_ar(c['title']), 'author': c['author'], 'license': c['license'], 'source': c['source'],
                       'url': 'https://github.com/ALjasme/system.q8tv-updates/releases/download/photos-%s/%s' % (month, name)})
         time.sleep(1)
     if not picks: print('QUEUE EMPTY: add reviewed photos to photos/queue.json')

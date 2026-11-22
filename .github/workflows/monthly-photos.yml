@@ -23,11 +23,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           month=$(date +%Y-%m)
-          if ! ls "$RUNNER_TEMP"/photos/*.jpg >/dev/null 2>&1; then
+          if ! ls "$RUNNER_TEMP"/photos/*.webp >/dev/null 2>&1; then
             gh issue create --title "photos: queue is empty ($month)" --body "Add reviewed Wikimedia Commons photos to photos/queue.json." || true
             exit 0
           fi
-          gh release create "photos-$month" "$RUNNER_TEMP"/photos/*.jpg --title "Photos $month" --notes "Kuwait photos from Wikimedia Commons; authors and licences in photos/photos.json"
+          gh release create "photos-$month" "$RUNNER_TEMP"/photos/*.webp --title "Photos $month" --notes "Kuwait photos from Wikimedia Commons; authors and licences in photos/photos.json"
           git config user.name "system.q8tv photos"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add photos/photos.json
